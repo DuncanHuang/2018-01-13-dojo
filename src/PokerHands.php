@@ -60,35 +60,21 @@ class PokerHands
         $secondSuitType  = $secondSuit->getCardType();
         $secondSuitPoint = $secondSuit->getCardPoint();
 
-        if ($this->isSameSuit($firstSuitType, $secondSuitType)) {
-            foreach ($firstSuitPoint as $key => $value) {
-                if ($firstSuitPoint[$key] > $secondSuitPoint[$key]) {
-                    return $this->firstPlayerKeyCardWin($firstSuitType, $firstSuitPoint, $key);
-                } else if ($firstSuitPoint[$key] < $secondSuitPoint[$key]) {
-                    return $this->secondPlayerKeyCardWin($firstSuitType, $secondSuitPoint, $key);
-                }
-            }
-
-            return $this->draw($firstSuitType);
-        }
-
         if ($this->suitLookup[$firstSuitType] > $this->suitLookup[$secondSuitType]) {
             return $this->firstPlayerSuitWin($firstSuitType, $secondSuitType);
-        }
-
-        if ($this->suitLookup[$firstSuitType] < $this->suitLookup[$secondSuitType]) {
+        } else if ($this->suitLookup[$firstSuitType] < $this->suitLookup[$secondSuitType]) {
             return $this->secondPlayerSuitWin($secondSuitType, $firstSuitType);
         }
-    }
 
-    /**
-     * @param $firstSuitType
-     * @param $secondSuitType
-     * @return bool
-     */
-    private function isSameSuit($firstSuitType, $secondSuitType)
-    {
-        return $this->suitLookup[$firstSuitType] == $this->suitLookup[$secondSuitType];
+        foreach ($firstSuitPoint as $key => $value) {
+            if ($firstSuitPoint[$key] > $secondSuitPoint[$key]) {
+                return $this->firstPlayerKeyCardWin($firstSuitType, $firstSuitPoint, $key);
+            } else if ($firstSuitPoint[$key] < $secondSuitPoint[$key]) {
+                return $this->secondPlayerKeyCardWin($firstSuitType, $secondSuitPoint, $key);
+            }
+        }
+
+        return $this->draw($firstSuitType);
     }
 
     /**
