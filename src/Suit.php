@@ -15,10 +15,10 @@ class Suit
     private $cardPoint;
     private $typeList = [
         'straightFlush',
-        'flush',
-        'straight',
         'fourOfAKind',
         'fullHouse',
+        'flush',
+        'straight',
     ];
     private $typeGroup;
     private $numberGroup;
