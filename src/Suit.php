@@ -52,7 +52,7 @@ class Suit
         $this->cards = array_map(function ($card) {
             return $card = [
                 substr($card, 0, 1),
-                (string)$this->lookup[substr($card, 1)]
+                (string)$this->lookup[substr($card, 1)],
             ];
         }, $this->cards);
 
@@ -107,6 +107,7 @@ class Suit
         if ($this->isStraight() == true && $this->isFlush() == true) {
             $this->cardType  = 'StraightFlush';
             $this->cardPoint = [$this->cards[0][1]];
+
             return true;
         }
 
@@ -118,6 +119,7 @@ class Suit
         if ($this->isFlush() == true) {
             $this->cardType  = 'Flush';
             $this->cardPoint = array_column($this->cards, '1');
+
             return true;
         }
 
@@ -129,6 +131,7 @@ class Suit
         if ($this->isStraight() == true) {
             $this->cardType  = 'Straight';
             $this->cardPoint = [$this->cards[0][1]];
+
             return true;
         }
 
@@ -140,6 +143,7 @@ class Suit
         if (count($this->typeGroup) == 4 && count($this->numberGroup) == 2 && max($this->numberGroup) == 4) {
             $this->cardType  = 'FourOfAKind';
             $this->cardPoint = [array_flip($this->numberGroup)[4]];
+
             return true;
         }
 
@@ -151,6 +155,7 @@ class Suit
         if (count($this->numberGroup) == 2 && max($this->numberGroup) == 3 && min($this->numberGroup) == 2) {
             $this->cardType  = 'FullHouse';
             $this->cardPoint = [array_flip($this->numberGroup)[3]];
+
             return true;
         }
 
@@ -162,6 +167,7 @@ class Suit
         if (count($this->numberGroup) == 3 && max($this->numberGroup) == 3) {
             $this->cardType  = 'ThreeOfAKind';
             $this->cardPoint = [array_flip($this->numberGroup)[3]];
+
             return true;
         }
 
@@ -171,11 +177,12 @@ class Suit
     private function twoPairs()
     {
         if (count($this->numberGroup) == 3 && max($this->numberGroup) == 2 && min($this->numberGroup) == 1) {
-            $this->cardType = 'TwoPairs';
+            $this->cardType  = 'TwoPairs';
             $this->cardPoint = array_merge(
                 array_keys($this->numberGroup, max($this->numberGroup)),
                 array_keys($this->numberGroup, min($this->numberGroup))
             );
+
             return true;
         }
 
@@ -185,11 +192,12 @@ class Suit
     private function onePair()
     {
         if (count($this->numberGroup) == 4 && max($this->numberGroup) == 2) {
-            $this->cardType = 'OnePair';
+            $this->cardType  = 'OnePair';
             $this->cardPoint = array_merge(
                 array_keys($this->numberGroup, max($this->numberGroup)),
                 array_keys($this->numberGroup, min($this->numberGroup))
             );
+
             return true;
         }
 
@@ -199,8 +207,9 @@ class Suit
     private function highCard()
     {
         if (count($this->numberGroup) == 5) {
-            $this->cardType = 'HighCard';
+            $this->cardType  = 'HighCard';
             $this->cardPoint = array_keys($this->numberGroup, min($this->numberGroup));
+
             return true;
         }
 
