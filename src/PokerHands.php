@@ -46,6 +46,12 @@ class PokerHands
         $secondSuitPoint = $secondSuit->getCardPoint();
 
         if ($this->lookup[$firstSuitType] == $this->lookup[$secondSuitType]) {
+            foreach ($firstSuitPoint as $key => $value) {
+                if ($firstSuitPoint[$key] > $secondSuitPoint[$key]) {
+                    return $this->firstPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $firstSuitPoint[$key];
+                }
+            }
+
             return 'Draw, ' . $firstSuitType;
         }
 
