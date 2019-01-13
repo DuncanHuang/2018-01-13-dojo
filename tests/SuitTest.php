@@ -24,12 +24,12 @@ class SuitTest extends TestCase
 
     public function test_StraightFlush()
     {
-        $this->suitShouldBe('H3,H4,H5,H6,H7', 'StraightFlush', [7]);
+        $this->suitShouldBe('H3,H4,H5,H6,H7', 'StraightFlush', [7, 6, 5, 4, 3]);
     }
 
     public function test_Straight()
     {
-        $this->suitShouldBe('H3,H4,D5,S6,H7', 'Straight', [7]);
+        $this->suitShouldBe('H3,H4,D5,S6,H7', 'Straight', [7, 6, 5, 4, 3]);
     }
 
     public function test_FourOfAKind()
@@ -74,12 +74,12 @@ class SuitTest extends TestCase
 
     public function test_Straight_10JQKA()
     {
-        $this->suitShouldBe('DK,SJ,SA,CQ,H10', 'Straight', [14]);
+        $this->suitShouldBe('DK,SJ,SA,CQ,H10', 'Straight', [14, 13, 12, 11, 10]);
     }
 
     public function test_Straight_A2345()
     {
-        $this->suitShouldBe('D2,S5,S3,C4,HA', 'Straight', [14]);
+        $this->suitShouldBe('D2,S5,S3,C4,HA', 'Straight', [14, 5, 4, 3, 2]);
     }
 
     private function suitShouldBe($cards, $cardType, $cardPoint)
