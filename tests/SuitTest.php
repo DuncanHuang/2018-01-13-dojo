@@ -77,6 +77,11 @@ class SuitTest extends TestCase
         $this->suitShouldBe('DK,SJ,SA,CQ,H10', 'Straight', [14]);
     }
 
+    public function test_Straight_A2345()
+    {
+        $this->suitShouldBe('D2,S5,S3,C4,HA', 'Straight', [14]);
+    }
+
     private function suitShouldBe($cards, $cardType, $cardPoint)
     {
         $suit = new Suit($cards);
