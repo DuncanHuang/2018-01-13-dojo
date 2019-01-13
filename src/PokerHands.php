@@ -60,24 +60,85 @@ class PokerHands
         $secondSuitType  = $secondSuit->getCardType();
         $secondSuitPoint = $secondSuit->getCardPoint();
 
-        if ($this->suitLookup[$firstSuitType] == $this->suitLookup[$secondSuitType]) {
+        if ($this->isSameSuit($firstSuitType, $secondSuitType)) {
             foreach ($firstSuitPoint as $key => $value) {
                 if ($firstSuitPoint[$key] > $secondSuitPoint[$key]) {
-                    return $this->firstPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$firstSuitPoint[$key]];
+                    return $this->firstPlayerKeyCardWin($firstSuitType, $firstSuitPoint, $key);
                 } else if ($firstSuitPoint[$key] < $secondSuitPoint[$key]) {
-                    return $this->secondPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$secondSuitPoint[$key]];
+                    return $this->secondPlayerKeyCardWin($firstSuitType, $secondSuitPoint, $key);
                 }
             }
 
-            return 'Draw, ' . $firstSuitType;
+            return $this->draw($firstSuitType);
         }
 
         if ($this->suitLookup[$firstSuitType] > $this->suitLookup[$secondSuitType]) {
-            return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
+            return $this->firstPlayerSuitWin($firstSuitType, $secondSuitType);
         }
 
         if ($this->suitLookup[$firstSuitType] < $this->suitLookup[$secondSuitType]) {
-            return $this->secondPlayerName . ' Win, ' . $secondSuitType . ' > ' . $firstSuitType;
+            return $this->secondPlayerSuitWin($secondSuitType, $firstSuitType);
         }
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $secondSuitType
+     * @return bool
+     */
+    private function isSameSuit($firstSuitType, $secondSuitType)
+    {
+        return $this->suitLookup[$firstSuitType] == $this->suitLookup[$secondSuitType];
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $firstSuitPoint
+     * @param $key
+     * @return string
+     */
+    private function firstPlayerKeyCardWin($firstSuitType, $firstSuitPoint, $key)
+    {
+        return $this->firstPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$firstSuitPoint[$key]];
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $secondSuitPoint
+     * @param $key
+     * @return string
+     */
+    private function secondPlayerKeyCardWin($firstSuitType, $secondSuitPoint, $key)
+    {
+        return $this->secondPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$secondSuitPoint[$key]];
+    }
+
+    /**
+     * @param $firstSuitType
+     * @return string
+     */
+    private function draw($firstSuitType)
+    {
+        return 'Draw, ' . $firstSuitType;
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $secondSuitType
+     * @return string
+     */
+    private function firstPlayerSuitWin($firstSuitType, $secondSuitType)
+    {
+        return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
+    }
+
+    /**
+     * @param $secondSuitType
+     * @param $firstSuitType
+     * @return string
+     */
+    private function secondPlayerSuitWin($secondSuitType, $firstSuitType)
+    {
+        return $this->secondPlayerName . ' Win, ' . $secondSuitType . ' > ' . $firstSuitType;
     }
 }
