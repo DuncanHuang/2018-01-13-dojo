@@ -37,6 +37,11 @@ class SuitTest extends TestCase
         $this->suitShouldBe('H7,D7,S7,C7,S8', 'FourOfAKind', [7]);
     }
 
+    public function test_FullHouse()
+    {
+        $this->suitShouldBe('H9,D9,C9,C4,D4', 'FullHouse', [9]);
+    }
+
     private function suitShouldBe($cards, $cardType, $cardPoint)
     {
         $suit = new Suit($cards);
