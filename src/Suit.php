@@ -16,6 +16,10 @@ class Suit
     private $cards;
     private $cardType;
     private $cardPoint;
+    private $typeList = [
+        'straightFlush',
+        'flush',
+    ];
 
     /**
      * Suit constructor.
@@ -39,16 +43,10 @@ class Suit
             return ($a[1] < $b[1]) ? 1 : -1;
         });
 
-        if ($this->isStraight() == true && $this->isFlush() == true) {
-            $this->cardType = 'StraightFlush';
-            $this->cardPoint = [$this->cards[0][1]];
-            return;
-        }
-
-        if ($this->isFlush() == true) {
-            $this->cardType = 'Flush';
-            $this->cardPoint = array_column($this->cards, '1');
-            return;
+        foreach ($this->typeList as $type) {
+            if ($this->{$type}() == true) {
+                break;
+            }
         }
     }
 
@@ -77,6 +75,28 @@ class Suit
         $numberCount = array_count_values(array_column($this->cards, '1'));
 
         if (count($numberCount) == 5 && $this->cards[0][1] - $this->cards[4][1] == 4) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function straightFlush()
+    {
+        if ($this->isStraight() == true && $this->isFlush() == true) {
+            $this->cardType  = 'StraightFlush';
+            $this->cardPoint = [$this->cards[0][1]];
+            return true;
+        }
+
+        return false;
+    }
+
+    private function flush()
+    {
+        if ($this->isFlush() == true) {
+            $this->cardType  = 'Flush';
+            $this->cardPoint = array_column($this->cards, '1');
             return true;
         }
 
