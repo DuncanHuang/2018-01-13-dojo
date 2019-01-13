@@ -11,16 +11,29 @@ namespace App;
 class PokerHands
 {
     private $lookup = [
-        'StraightFlush' => 1,
-        'FourOfAKind'   => 2,
-        'FullHouse'     => 3,
-        'Flush'         => 4,
+        'StraightFlush' => 9,
+        'FourOfAKind'   => 8,
+        'FullHouse'     => 7,
+        'Flush'         => 6,
         'Straight'      => 5,
-        'ThreeOfAKind'  => 6,
-        'TwoPairs'      => 7,
-        'OnePair'       => 8,
-        'HighCard'      => 9,
+        'ThreeOfAKind'  => 4,
+        'TwoPairs'      => 3,
+        'OnePair'       => 2,
+        'HighCard'      => 1,
     ];
+    private $firstPlayerName;
+    private $secondPlayerName;
+
+    /**
+     * PokerHands constructor.
+     * @param $firstPlayerName
+     * @param $secondPlayerName
+     */
+    public function __construct($firstPlayerName = null, $secondPlayerName = null)
+    {
+        $this->firstPlayerName  = $firstPlayerName;
+        $this->secondPlayerName = $secondPlayerName;
+    }
 
     public function getResult($firstCards, $secondCards)
     {
@@ -34,6 +47,10 @@ class PokerHands
 
         if ($this->lookup[$firstSuitType] == $this->lookup[$secondSuitType]) {
             return 'Draw, ' . $firstSuitType;
+        }
+
+        if ($this->lookup[$firstSuitType] > $this->lookup[$secondSuitType]) {
+            return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
         }
     }
 }
