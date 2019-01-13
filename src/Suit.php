@@ -19,6 +19,7 @@ class Suit
     private $typeList = [
         'straightFlush',
         'flush',
+        'straight'
     ];
 
     /**
@@ -97,6 +98,17 @@ class Suit
         if ($this->isFlush() == true) {
             $this->cardType  = 'Flush';
             $this->cardPoint = array_column($this->cards, '1');
+            return true;
+        }
+
+        return false;
+    }
+
+    private function straight()
+    {
+        if ($this->isStraight() == true) {
+            $this->cardType  = 'Straight';
+            $this->cardPoint = [$this->cards[0][1]];
             return true;
         }
 

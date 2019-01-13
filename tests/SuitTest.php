@@ -31,4 +31,10 @@ class SuitTest extends TestCase
         $this->assertEquals([7], $suit->getCardPoint());
     }
 
+    public function test_Straight()
+    {
+        $suit = new Suit('H3,H4,D5,S6,H7');
+        $this->assertEquals('Straight', $suit->getCardType());
+        $this->assertEquals([7], $suit->getCardPoint());
+    }
 }
