@@ -62,6 +62,11 @@ class SuitTest extends TestCase
         $this->suitShouldBe('D3,S6,S10,C8,H7', 'HighCard', [10, 8, 7, 6, 3]);
     }
 
+    public function test_HighCard_JQK()
+    {
+        $this->suitShouldBe('DK,SJ,S10,CQ,H7', 'HighCard', [13, 12, 11, 10, 7]);
+    }
+
     private function suitShouldBe($cards, $cardType, $cardPoint)
     {
         $suit = new Suit($cards);
