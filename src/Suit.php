@@ -8,6 +8,7 @@
 
 namespace App;
 
+use function Couchbase\defaultDecoder;
 use function foo\func;
 
 class Suit
@@ -38,9 +39,16 @@ class Suit
             return ($a[1] < $b[1]) ? 1 : -1;
         });
 
+        if ($this->isStraight() == true && $this->isFlush() == true) {
+            $this->cardType = 'StraightFlush';
+            $this->cardPoint = [$this->cards[0][1]];
+            return;
+        }
+
         if ($this->isFlush() == true) {
             $this->cardType = 'Flush';
             $this->cardPoint = array_column($this->cards, '1');
+            return;
         }
     }
 
@@ -62,5 +70,16 @@ class Suit
     public function getCardPoint()
     {
         return $this->cardPoint;
+    }
+
+    private function isStraight()
+    {
+        $numberCount = array_count_values(array_column($this->cards, '1'));
+
+        if (count($numberCount) == 5 && $this->cards[0][1] - $this->cards[4][1] == 4) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -23,4 +23,12 @@ class SuitTest extends TestCase
         $this->assertEquals('Flush', $suit->getCardType());
         $this->assertEquals([8, 5, 4, 3, 2], $suit->getCardPoint());
     }
+
+    public function test_StraightFlush()
+    {
+        $suit = new Suit('H3,H4,H5,H6,H7');
+        $this->assertEquals('StraightFlush', $suit->getCardType());
+        $this->assertEquals([7], $suit->getCardPoint());
+    }
+
 }
