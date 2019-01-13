@@ -19,6 +19,7 @@ class Suit
         'fullHouse',
         'flush',
         'straight',
+        'threeOfAKind',
     ];
     private $typeGroup;
     private $numberGroup;
@@ -131,6 +132,17 @@ class Suit
     {
         if (count($this->numberGroup) == 2 && max($this->numberGroup) == 3 && min($this->numberGroup) == 2) {
             $this->cardType  = 'FullHouse';
+            $this->cardPoint = [array_flip($this->numberGroup)[3]];
+            return true;
+        }
+
+        return false;
+    }
+
+    private function threeOfAKind()
+    {
+        if (count($this->numberGroup) == 3 && max($this->numberGroup) == 3) {
+            $this->cardType  = 'ThreeOfAKind';
             $this->cardPoint = [array_flip($this->numberGroup)[3]];
             return true;
         }
