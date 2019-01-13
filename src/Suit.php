@@ -21,6 +21,8 @@ class Suit
         'flush',
         'straight'
     ];
+    private $typeGroup;
+    private $numberGroup;
 
     /**
      * Suit constructor.
@@ -44,6 +46,9 @@ class Suit
             return ($a[1] < $b[1]) ? 1 : -1;
         });
 
+        $this->typeGroup   = array_count_values(array_column($this->cards, '0'));
+        $this->numberGroup = array_count_values(array_column($this->cards, '1'));
+
         foreach ($this->typeList as $type) {
             if ($this->{$type}() == true) {
                 break;
@@ -53,8 +58,7 @@ class Suit
 
     private function isFlush()
     {
-        $typeCount = array_count_values(array_column($this->cards, '0'));
-        if (count($typeCount) == 1) {
+        if (count($this->typeGroup) == 1) {
             return true;
         }
 
@@ -73,9 +77,7 @@ class Suit
 
     private function isStraight()
     {
-        $numberCount = array_count_values(array_column($this->cards, '1'));
-
-        if (count($numberCount) == 5 && $this->cards[0][1] - $this->cards[4][1] == 4) {
+        if (count($this->numberGroup) == 5 && $this->cards[0][1] - $this->cards[4][1] == 4) {
             return true;
         }
 
