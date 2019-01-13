@@ -75,5 +75,9 @@ class PokerHands
         if ($this->suitLookup[$firstSuitType] > $this->suitLookup[$secondSuitType]) {
             return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
         }
+
+        if ($this->suitLookup[$firstSuitType] < $this->suitLookup[$secondSuitType]) {
+            return $this->secondPlayerName . ' Win, ' . $secondSuitType . ' > ' . $firstSuitType;
+        }
     }
 }
