@@ -22,6 +22,7 @@ class Suit
         'threeOfAKind',
         'twoPairs',
         'onePair',
+        'highCard',
     ];
     private $typeGroup;
     private $numberGroup;
@@ -160,7 +161,10 @@ class Suit
                 array_keys($this->numberGroup, max($this->numberGroup)),
                 array_keys($this->numberGroup, min($this->numberGroup))
             );
+            return true;
         }
+
+        return false;
     }
 
     private function onePair()
@@ -171,6 +175,20 @@ class Suit
                 array_keys($this->numberGroup, max($this->numberGroup)),
                 array_keys($this->numberGroup, min($this->numberGroup))
             );
+            return true;
         }
+
+        return false;
+    }
+
+    private function highCard()
+    {
+        if (count($this->numberGroup) == 5) {
+            $this->cardType = 'HighCard';
+            $this->cardPoint = array_keys($this->numberGroup, min($this->numberGroup));
+            return true;
+        }
+
+        return false;
     }
 }
