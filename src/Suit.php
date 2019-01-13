@@ -8,9 +8,6 @@
 
 namespace App;
 
-use function Couchbase\defaultDecoder;
-use function foo\func;
-
 class Suit
 {
     private $cards;
@@ -19,7 +16,8 @@ class Suit
     private $typeList = [
         'straightFlush',
         'flush',
-        'straight'
+        'straight',
+        'fourOfAKind',
     ];
     private $typeGroup;
     private $numberGroup;
@@ -111,6 +109,17 @@ class Suit
         if ($this->isStraight() == true) {
             $this->cardType  = 'Straight';
             $this->cardPoint = [$this->cards[0][1]];
+            return true;
+        }
+
+        return false;
+    }
+
+    private function fourOfAKind()
+    {
+        if (count($this->typeGroup) == 4 && count($this->numberGroup) == 2 && max($this->numberGroup) == 4) {
+            $this->cardType  = 'FourOfAKind';
+            $this->cardPoint = [array_flip($this->numberGroup)[4]];
             return true;
         }
 
