@@ -81,6 +81,7 @@ class Suit
             new fullHouseMatcher($this->cards),
             new flushMatcher($this->cards),
             new straightMatcher($this->cards),
+            new threeOfAKindMatcher($this->cards),
         ];
     }
 }
