@@ -60,24 +60,115 @@ class PokerHands
         $secondSuitType  = $secondSuit->getCardType();
         $secondSuitPoint = $secondSuit->getKeyCards();
 
-        if ($this->suitLookup[$firstSuitType] > $this->suitLookup[$secondSuitType]) {
-            return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
+        if ($this->suitFirstGreaterSecond($firstSuitType, $secondSuitType)) {
+            return $this->firstPlayerSuitWin($firstSuitType, $secondSuitType);
         }
 
-        if ($this->suitLookup[$firstSuitType] < $this->suitLookup[$secondSuitType]) {
-            return $this->secondPlayerName . ' Win, ' . $secondSuitType . ' > ' . $firstSuitType;
+        if ($this->suitFirstLessSecond($firstSuitType, $secondSuitType)) {
+            return $this->secondPlayerSuitWin($secondSuitType, $firstSuitType);
         }
 
-        if ($this->suitLookup[$firstSuitType] == $this->suitLookup[$secondSuitType]) {
-            foreach ($firstSuitPoint as $key => $value) {
-                if ($firstSuitPoint[$key] > $secondSuitPoint[$key]) {
-                    return $this->firstPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$firstSuitPoint[$key]];
-                } else if ($firstSuitPoint[$key] < $secondSuitPoint[$key]) {
-                    return $this->secondPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$secondSuitPoint[$key]];
-                }
+        foreach ($firstSuitPoint as $key => $value) {
+            if ($this->keyCardFirseGreaterSecond($firstSuitPoint, $key, $secondSuitPoint)) {
+                return $this->firstPlayerKeyCardWin($firstSuitType, $firstSuitPoint, $key);
+            } else if ($this->keyCardFirstLessSecond($firstSuitPoint, $key, $secondSuitPoint)) {
+                return $this->secondPlayerKeyCardWin($firstSuitType, $secondSuitPoint, $key);
             }
-
-            return 'Draw, ' . $firstSuitType;
         }
+
+        return $this->draw($firstSuitType);
+    }
+
+    /**
+     * @param $firstSuitType
+     * @return string
+     */
+    private function draw($firstSuitType)
+    {
+        return 'Draw, ' . $firstSuitType;
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $firstSuitPoint
+     * @param $key
+     * @return string
+     */
+    private function firstPlayerKeyCardWin($firstSuitType, $firstSuitPoint, $key)
+    {
+        return $this->firstPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$firstSuitPoint[$key]];
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $secondSuitPoint
+     * @param $key
+     * @return string
+     */
+    private function secondPlayerKeyCardWin($firstSuitType, $secondSuitPoint, $key)
+    {
+        return $this->secondPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$secondSuitPoint[$key]];
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $secondSuitType
+     * @return string
+     */
+    private function firstPlayerSuitWin($firstSuitType, $secondSuitType)
+    {
+        return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
+    }
+
+    /**
+     * @param $secondSuitType
+     * @param $firstSuitType
+     * @return string
+     */
+    private function secondPlayerSuitWin($secondSuitType, $firstSuitType)
+    {
+        return $this->secondPlayerName . ' Win, ' . $secondSuitType . ' > ' . $firstSuitType;
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $secondSuitType
+     * @return bool
+     */
+    private function suitFirstGreaterSecond($firstSuitType, $secondSuitType)
+    {
+        return $this->suitLookup[$firstSuitType] > $this->suitLookup[$secondSuitType];
+    }
+
+    /**
+     * @param $firstSuitType
+     * @param $secondSuitType
+     * @return bool
+     */
+    private function suitFirstLessSecond($firstSuitType, $secondSuitType)
+    {
+        return $this->suitLookup[$firstSuitType] < $this->suitLookup[$secondSuitType];
+    }
+
+    /**
+     * @param $firstSuitPoint
+     * @param $key
+     * @param $secondSuitPoint
+     * @return bool
+     */
+    private function keyCardFirseGreaterSecond($firstSuitPoint, $key, $secondSuitPoint)
+    {
+        return $firstSuitPoint[$key] > $secondSuitPoint[$key];
+    }
+
+    /**
+     * @param $firstSuitPoint
+     * @param $key
+     * @param $secondSuitPoint
+     * @return bool
+     */
+    private function keyCardFirstLessSecond($firstSuitPoint, $key, $secondSuitPoint)
+    {
+        return $firstSuitPoint[$key] < $secondSuitPoint[$key];
     }
 }
