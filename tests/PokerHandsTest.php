@@ -38,4 +38,11 @@ class PokerHandsTest extends TestCase
         $this->assertEquals('Duncan Win, FourOfAKind, and key card is 8', $actual);
     }
 
+    public function test_SecondWin_Straight_KeyCard_A()
+    {
+        $pokerHands = new PokerHands('Duncan', 'Mars');
+        $actual = $pokerHands->getResult('S9,S10,SJ,SK,CQ', 'SA,S2,S3,S4,C5');
+        $this->assertEquals('Mars Win, Straight, and key card is A', $actual);
+    }
+
 }

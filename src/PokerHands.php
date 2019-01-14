@@ -10,7 +10,7 @@ namespace App;
 
 class PokerHands
 {
-    private $lookup = [
+    private $suitLookup = [
         'StraightFlush' => 9,
         'FourOfAKind'   => 8,
         'FullHouse'     => 7,
@@ -20,6 +20,21 @@ class PokerHands
         'TwoPairs'      => 3,
         'OnePair'       => 2,
         'HighCard'      => 1,
+    ];
+    private $numberLookup = [
+        2  => '2',
+        3  => '3',
+        4  => '4',
+        5  => '5',
+        6  => '6',
+        7  => '7',
+        8  => '8',
+        9  => '9',
+        10 => '10',
+        11 => 'J',
+        12 => 'Q',
+        13 => 'K',
+        14 => 'A',
     ];
     private $firstPlayerName;
     private $secondPlayerName;
@@ -45,14 +60,16 @@ class PokerHands
         $secondSuitType  = $secondSuit->getCardType();
         $secondSuitPoint = $secondSuit->getKeyCards();
 
-        if ($this->lookup[$firstSuitType] > $this->lookup[$secondSuitType]) {
+        if ($this->suitLookup[$firstSuitType] > $this->suitLookup[$secondSuitType]) {
             return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
         }
 
-        if ($this->lookup[$firstSuitType] == $this->lookup[$secondSuitType]) {
+        if ($this->suitLookup[$firstSuitType] == $this->suitLookup[$secondSuitType]) {
             foreach ($firstSuitPoint as $key => $value) {
                 if ($firstSuitPoint[$key] > $secondSuitPoint[$key]) {
-                    return $this->firstPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $firstSuitPoint[$key];
+                    return $this->firstPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$firstSuitPoint[$key]];
+                } else if ($firstSuitPoint[$key] < $secondSuitPoint[$key]) {
+                    return $this->secondPlayerName . ' Win, ' . $firstSuitType . ', and key card is ' . $this->numberLookup[$secondSuitPoint[$key]];
                 }
             }
 
