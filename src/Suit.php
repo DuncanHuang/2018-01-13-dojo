@@ -79,6 +79,7 @@ class Suit
             new straightFlushMatcher($this->cards),
             new flushMatcher($this->cards),
             new straightMatcher($this->cards),
+            new fourOfAKindMatcher($this->cards),
         ];
     }
 }
