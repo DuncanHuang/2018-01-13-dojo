@@ -23,4 +23,12 @@ class PokerHandsTest extends TestCase
         $actual = $pokerHands->getResult('S5,S6,S7,S8,S9', 'C5,C6,C7,C8,C9');
         $this->assertEquals('Draw, StraightFlush', $actual);
     }
+
+    public function test_FirstWin_StraightFlush_FourOfAKind()
+    {
+        $pokerHands = new PokerHands('Duncan', 'Mars');
+        $actual = $pokerHands->getResult('S5,S6,S7,S9,S8', 'C5,D5,H5,S5,S3');
+        $this->assertEquals('Duncan Win, StraightFlush > FourOfAKind', $actual);
+    }
+
 }

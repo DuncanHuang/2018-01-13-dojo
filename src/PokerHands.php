@@ -21,6 +21,19 @@ class PokerHands
         'OnePair'       => 2,
         'HighCard'      => 1,
     ];
+    private $firstPlayerName;
+    private $secondPlayerName;
+
+    /**
+     * PokerHands constructor.
+     * @param $firstPlayerName
+     * @param $secondPlayerName
+     */
+    public function __construct($firstPlayerName = null, $secondPlayerName = null)
+    {
+        $this->firstPlayerName  = $firstPlayerName;
+        $this->secondPlayerName = $secondPlayerName;
+    }
 
     public function getResult($firstCards, $secondCards)
     {
@@ -31,6 +44,10 @@ class PokerHands
         $secondSuit      = new Suit($secondCards);
         $secondSuitType  = $secondSuit->getCardType();
         $secondSuitPoint = $secondSuit->getKeyCards();
+
+        if ($this->lookup[$firstSuitType] > $this->lookup[$secondSuitType]) {
+            return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
+        }
 
         if ($this->lookup[$firstSuitType] == $this->lookup[$secondSuitType]) {
             return 'Draw, ' . $firstSuitType;
