@@ -77,6 +77,7 @@ class Suit
         return [
             new straightFlushMatcher(),
             new flushMatcher(),
+            new straightMatcher(),
         ];
     }
 }
