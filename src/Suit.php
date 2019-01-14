@@ -84,6 +84,7 @@ class Suit
             new threeOfAKindMatcher($this->cards),
             new twoPairsMatcher($this->cards),
             new onePairMatcher($this->cards),
+            new highCardMatcher($this->cards),
         ];
     }
 }
