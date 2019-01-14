@@ -64,6 +64,10 @@ class PokerHands
             return $this->firstPlayerName . ' Win, ' . $firstSuitType . ' > ' . $secondSuitType;
         }
 
+        if ($this->suitLookup[$firstSuitType] < $this->suitLookup[$secondSuitType]) {
+            return $this->secondPlayerName . ' Win, ' . $secondSuitType . ' > ' . $firstSuitType;
+        }
+
         if ($this->suitLookup[$firstSuitType] == $this->suitLookup[$secondSuitType]) {
             foreach ($firstSuitPoint as $key => $value) {
                 if ($firstSuitPoint[$key] > $secondSuitPoint[$key]) {
