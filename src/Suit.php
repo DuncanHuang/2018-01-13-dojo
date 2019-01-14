@@ -13,7 +13,6 @@ class Suit
     private $cards;
     private $cardType;
     private $cardPoint;
-    private $matcher;
 
     /**
      * Suit constructor.
@@ -31,8 +30,10 @@ class Suit
     {
         $this->parseCards($cards);
 
-        foreach ($this->cardTypeMatcher() as $this->matcher) {
-            if ($this->matcher->isMatch($this->cards) == true) {
+        foreach ($this->cardTypeMatcher() as $matcher) {
+            if ($matcher->isMatch($this->cards) == true) {
+                $this->cardType = $matcher->getCardType();
+                $this->cardPoint = $matcher->getCardPoint();
                 break;
             }
         }
@@ -40,12 +41,12 @@ class Suit
 
     public function getCardType()
     {
-        return $this->matcher->getCardType();
+        return $this->cardType;
     }
 
     public function getCardPoint()
     {
-        return $this->matcher->getCardPoint();
+        return $this->cardPoint;
     }
 
     /**
