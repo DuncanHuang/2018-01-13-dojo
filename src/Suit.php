@@ -13,6 +13,21 @@ class Suit
     private $cards;
     private $cardType;
     private $keyCards;
+    private $lookup = [
+        '2'  => 2,
+        '3'  => 3,
+        '4'  => 4,
+        '5'  => 5,
+        '6'  => 6,
+        '7'  => 7,
+        '8'  => 8,
+        '9'  => 9,
+        '10' => 10,
+        'J'  => 11,
+        'Q'  => 12,
+        'K'  => 13,
+        'A'  => 14,
+    ];
 
     /**
      * Suit constructor.
@@ -58,7 +73,7 @@ class Suit
         $cards = array_map(function ($card) {
             return $card = [
                 substr($card, 0, 1),
-                substr($card, 1),
+                (string)$this->lookup[substr($card, 1)]
             ];
         }, $cards);
 
