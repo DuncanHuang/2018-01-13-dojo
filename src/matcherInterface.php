@@ -14,5 +14,5 @@ interface matcherInterface
 
     public function getCardType();
 
-    public function getCardPoint();
+    public function getKeyCards();
 }

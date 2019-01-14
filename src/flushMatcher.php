@@ -32,7 +32,7 @@ class flushMatcher implements matcherInterface
         return $this->cardType;
     }
 
-    public function getCardPoint()
+    public function getKeyCards()
     {
         return $this->cardPoint;
     }
