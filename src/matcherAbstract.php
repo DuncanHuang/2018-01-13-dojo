@@ -22,7 +22,7 @@ abstract class matcherAbstract implements matcherInterface
      */
     public function __construct($cards)
     {
-        $this->cards = $cards;
+        $this->cards       = $cards;
         $this->numberGroup = array_count_values(array_column($this->cards, '1'));
         $this->typeGroup   = array_count_values(array_column($this->cards, '0'));
     }

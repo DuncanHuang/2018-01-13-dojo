@@ -73,7 +73,7 @@ class Suit
         $cards = array_map(function ($card) {
             return $card = [
                 substr($card, 0, 1),
-                (string)$this->lookup[substr($card, 1)]
+                (string)$this->lookup[substr($card, 1)],
             ];
         }, $cards);
 
