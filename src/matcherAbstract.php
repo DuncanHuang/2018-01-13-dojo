@@ -39,8 +39,17 @@ abstract class matcherAbstract implements matcherInterface
 
     protected function isStraight()
     {
-        if (count($this->numberGroup) == 5 && $this->cards[0][1] - $this->cards[4][1] == 4) {
-            return true;
+        if (count($this->numberGroup) == 5) {
+            if ($this->cards[0][1] - $this->cards[4][1] == 4) {
+                return true;
+            }
+
+            if (
+                array_sum(array_column(array_slice($this->cards, 1), '1')) == 14
+                && $this->cards[0][1] == 14
+            ) {
+                return true;
+            }
         }
 
         return false;
