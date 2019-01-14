@@ -80,6 +80,7 @@ class Suit
             new flushMatcher($this->cards),
             new straightMatcher($this->cards),
             new fourOfAKindMatcher($this->cards),
+            new fullHouseMatcher($this->cards),
         ];
     }
 }
