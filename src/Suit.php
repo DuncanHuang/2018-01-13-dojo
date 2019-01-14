@@ -77,10 +77,10 @@ class Suit
     {
         return [
             new straightFlushMatcher($this->cards),
-            new flushMatcher($this->cards),
-            new straightMatcher($this->cards),
             new fourOfAKindMatcher($this->cards),
             new fullHouseMatcher($this->cards),
+            new flushMatcher($this->cards),
+            new straightMatcher($this->cards),
         ];
     }
 }
