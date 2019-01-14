@@ -19,7 +19,7 @@ class straightFlushMatcher implements matcherInterface
         $this->cards = $cards;
         if ($this->isStraight() == true && $this->isFlush() == true) {
             $this->cardType  = 'StraightFlush';
-            $this->cardPoint = [$this->cards[0][1]];
+            $this->cardPoint = array_column($this->cards, '1');
 
             return true;
         }
