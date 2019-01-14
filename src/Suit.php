@@ -82,6 +82,7 @@ class Suit
             new flushMatcher($this->cards),
             new straightMatcher($this->cards),
             new threeOfAKindMatcher($this->cards),
+            new twoPairsMatcher($this->cards),
         ];
     }
 }
