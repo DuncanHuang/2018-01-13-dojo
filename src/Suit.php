@@ -31,7 +31,7 @@ class Suit
         $this->parseCards($cards);
 
         foreach ($this->cardTypeMatcher() as $matcher) {
-            if ($matcher->isMatch($this->cards) == true) {
+            if ($matcher->isMatch() == true) {
                 $this->cardType = $matcher->getCardType();
                 $this->keyCards = $matcher->getKeyCards();
                 break;
@@ -76,9 +76,9 @@ class Suit
     private function cardTypeMatcher()
     {
         return [
-            new straightFlushMatcher(),
-            new flushMatcher(),
-            new straightMatcher(),
+            new straightFlushMatcher($this->cards),
+            new flushMatcher($this->cards),
+            new straightMatcher($this->cards),
         ];
     }
 }

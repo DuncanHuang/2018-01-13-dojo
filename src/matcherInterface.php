@@ -10,7 +10,7 @@ namespace App;
 
 interface matcherInterface
 {
-    public function isMatch($cards);
+    public function isMatch();
 
     public function getCardType();
 
